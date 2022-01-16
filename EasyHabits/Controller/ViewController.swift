@@ -22,9 +22,8 @@ class ViewController: UIViewController {
         
         habitTableView.delegate = self
         habitTableView.dataSource = self
-        habitTableView.register(UINib(nibName: "HabitTableViewCell", bundle: nil), forCellReuseIdentifier: "HabitTableViewCell")
+        habitTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
         habitTableView.rowHeight = 200
-    
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -44,11 +43,11 @@ extension ViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HabitTableViewCell", for: indexPath) as! HabitTableViewCell
-        cell.habitName.text = habits[indexPath.row].name
-        cell.daysLabel.text = String(habits[indexPath.row].dayCount.count)
-        cell.streakLabel.text = String(habits[indexPath.row].streak)
-        cell.livesLabel.text = String(habits[indexPath.row].lives)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+//        cell.habitName.text = habits[indexPath.row].name
+//        cell.daysLabel.text = String(habits[indexPath.row].dayCount.count)
+//        cell.streakLabel.text = String(habits[indexPath.row].streak)
+//        cell.livesLabel.text = String(habits[indexPath.row].lives)
         cell.selectionStyle = .none
         return cell
     }
