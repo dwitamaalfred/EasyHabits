@@ -142,6 +142,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system">
                                     <color key="baseForegroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="updateDate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nzD-sL-DWq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

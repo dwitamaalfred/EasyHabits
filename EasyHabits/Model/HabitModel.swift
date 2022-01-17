@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct HabitModel {
+struct HabitModel: Codable {
     var name : String
     var status : [String] = ["empty","empty","empty","empty","empty","empty","empty"]
     var streak : Int = 0
     var lives : Int = 3
     var daysCount : Int = 0
+    var modified : Bool = false
 }
