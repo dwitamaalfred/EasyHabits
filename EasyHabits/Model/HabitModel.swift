@@ -9,7 +9,8 @@ import Foundation
 
 struct HabitModel {
     var name : String
-    var dayCount : [String]
-    var streak : Double
-    var lives : Double
+    var status : [String] = ["empty","empty","empty","empty","empty","empty","empty"]
+    var streak : Int
+    var lives : Int = 3
+    var daysCount : Int = 0
 }

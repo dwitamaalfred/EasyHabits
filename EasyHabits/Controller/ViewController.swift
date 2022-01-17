@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var habits = [HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3),
-                  HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3),
-                  HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3)]
+    var habits = [HabitModel(name: "Coding Everyday", status: ["emoty","empty","empty","empty","empty","empty","empty"],streak: 0),
+                  HabitModel(name: "Coding Everyday 1",status: ["success","success","failed","empty","empty","empty","empty"], streak: 3),
+                  HabitModel(name: "Coding Everyday 2",status: ["success","success","failed","empty","empty","empty","empty"], streak: 2)]
     
     @IBOutlet weak var addHabitButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
@@ -20,12 +20,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         
+        
         habitTableView.delegate = self
         habitTableView.dataSource = self
         habitTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
         habitTableView.rowHeight = 200
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -44,10 +44,7 @@ extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-//        cell.habitName.text = habits[indexPath.row].name
-//        cell.daysLabel.text = String(habits[indexPath.row].dayCount.count)
-//        cell.streakLabel.text = String(habits[indexPath.row].streak)
-//        cell.livesLabel.text = String(habits[indexPath.row].lives)
+        cell.habit = habits[indexPath.row]
         cell.selectionStyle = .none
         return cell
     }

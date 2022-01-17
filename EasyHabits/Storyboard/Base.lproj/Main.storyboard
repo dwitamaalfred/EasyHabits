@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,14 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0u-PX-DZe">
-                                <rect key="frame" x="10" y="126" width="394" height="653"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0u-PX-DZe">
+                                <rect key="frame" x="10" y="126" width="394" height="666"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGl-yh-3ai">
-                                <rect key="frame" x="20" y="804" width="92" height="31"/>
+                                <rect key="frame" x="20" y="807" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="g0W-WD-6lb"/>
+                                    <constraint firstAttribute="height" constant="40" id="uPd-Ae-G2m"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="add habit" imagePadding="5" cornerStyle="large">
+                                    <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri, 24 Des 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTZ-5T-GHO">
                                 <rect key="frame" x="26" y="71" width="328" height="30"/>
@@ -33,13 +41,13 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <color key="tintColor" systemColor="systemBlueColor"/>
                         <constraints>
                             <constraint firstItem="pGl-yh-3ai" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0zb-ce-ztC"/>
-                            <constraint firstItem="pGl-yh-3ai" firstAttribute="top" secondItem="n0u-PX-DZe" secondAttribute="bottom" constant="25" id="20v-Ce-jo7"/>
+                            <constraint firstItem="pGl-yh-3ai" firstAttribute="top" secondItem="n0u-PX-DZe" secondAttribute="bottom" constant="15" id="20v-Ce-jo7"/>
                             <constraint firstItem="n0u-PX-DZe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="4LM-qH-14J"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pGl-yh-3ai" secondAttribute="trailing" constant="302" id="FVE-Zo-qEw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pGl-yh-3ai" secondAttribute="bottom" constant="27" id="HND-Ox-WVb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pGl-yh-3ai" secondAttribute="bottom" constant="15" id="HND-Ox-WVb"/>
                             <constraint firstItem="aTZ-5T-GHO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="26" id="Jaq-LL-cp2"/>
                             <constraint firstItem="n0u-PX-DZe" firstAttribute="top" secondItem="aTZ-5T-GHO" secondAttribute="bottom" constant="25" id="MIf-Wl-vzm"/>
                             <constraint firstItem="aTZ-5T-GHO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="27" id="R8f-Wn-dkv"/>
@@ -59,8 +67,12 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
