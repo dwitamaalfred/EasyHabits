@@ -9,9 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var habits = [HabitModel(name: "Coding Everyday", status: ["emoty","empty","empty","empty","empty","empty","empty"],streak: 0),
-                  HabitModel(name: "Coding Everyday 1",status: ["success","success","failed","empty","empty","empty","empty"], streak: 3),
-                  HabitModel(name: "Coding Everyday 2",status: ["success","success","failed","empty","empty","empty","empty"], streak: 2)]
+    var habits = [HabitModel(name: "Coding Everyday", status: ["empty","empty","empty","empty","empty","empty","empty"])]
+    let blurEffectView = BlurEffectView()
     
     @IBOutlet weak var addHabitButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
@@ -27,6 +26,36 @@ class ViewController: UIViewController {
         habitTableView.rowHeight = 200
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func addHabitButton(_ sender: Any) {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurVisualEffectView = UIVisualEffectView(effect: blurEffect)
+        blurVisualEffectView.frame = view.bounds
+        blurVisualEffectView.alpha = 0.4
+        
+        let alertController = UIAlertController.init(title: "New Habit", message: "that will determine your future", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+               textField.placeholder = "Enter new habit"
+           }
+        
+        alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let habitName = alertController.textFields![0] as UITextField
+            let newHabit = HabitModel(name: habitName.text!)
+            self.habits.append(newHabit)
+            habitTableView.reloadData()
+            
+            self.blurEffectView.removeFromSuperview()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            self.blurEffectView.removeFromSuperview()
+         }))
+
+        
+        self.view.addSubview(blurEffectView)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

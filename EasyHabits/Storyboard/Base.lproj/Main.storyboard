@@ -32,6 +32,9 @@
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="addHabitButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gdA-db-eDG"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri, 24 Des 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTZ-5T-GHO">
                                 <rect key="frame" x="26" y="71" width="328" height="30"/>

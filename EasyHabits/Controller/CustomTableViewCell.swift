@@ -30,14 +30,11 @@ class CustomTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        habitCardView.layer.cornerRadius = 20
-        historyStackView.distribution = .equalSpacing
+    
+        updateStyling()
         
         DispatchQueue.main.async {
-            self.habitTitleLabel.text = self.habit.name
-            self.totalDaysLabel.text = String(self.habit.daysCount)
-            self.totalStreaksLabel.text = String(self.habit.streak)
-            self.totalLivesLabel.text = String(self.habit.lives)
+      
             self.updateRecords()
         }
     }
@@ -51,20 +48,30 @@ class CustomTableViewCell: UITableViewCell {
         
         let counter = failed+totalDays
         
+        for item in self.historyStackView.arrangedSubviews {
+            item.removeFromSuperview()
+        }
         if self.status == false{
             self.habit.daysCount += 1
+            self.habit.streak += 1
             self.totalDaysLabel.text = String(self.habit.daysCount)
             self.status = true
             self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
             self.habit.status[counter] = "success"
+            print(self.habit)
+//            print(self.habit.streak)
+            
         }else{
             self.habit.daysCount -= 1
+            self.habit.streak -= 1
             self.status = false
             self.totalDaysLabel.text = String(self.habit.daysCount)
             self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
             self.habit.status[counter] = "empty"
+        
         }
         
+        self.updateRecords()
         print(habit.name)
         
         
@@ -73,10 +80,13 @@ class CustomTableViewCell: UITableViewCell {
     
     func updateRecords(){
         
+        self.habitTitleLabel.text = self.habit.name
+        self.totalDaysLabel.text = String(self.habit.daysCount)
+        self.totalStreaksLabel.text = String(self.habit.daysCount)
+        self.totalLivesLabel.text = String(self.habit.lives)
+        
+        
         for status in habit.status {
-            
-            print(status)
-            
             let statusView = UIImageView()
             statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
             
@@ -87,10 +97,22 @@ class CustomTableViewCell: UITableViewCell {
             } else {
                 statusView.image =  UIImage(named: "days-empty")
             }
-            
-            
             historyStackView.addArrangedSubview(statusView)
         }
+        print(historyStackView.subviews.count)
+    }
+    
+    func updateStyling(){
+        habitCardView.layer.cornerRadius = 20
+        historyStackView.distribution = .equalSpacing
+        
+    
+        markDoneButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        markDoneButton.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        markDoneButton.layer.shadowOpacity = 1.0
+        markDoneButton.layer.shadowRadius = 5
+        markDoneButton.layer.masksToBounds = false
+        markDoneButton.layer.cornerRadius = 4.0
     }
     
 }
