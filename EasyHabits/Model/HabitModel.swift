@@ -9,7 +9,7 @@ import Foundation
 
 struct HabitModel {
     var name : String
-    var dayCount : [Bool]
+    var dayCount : [String]
     var streak : Double
     var lives : Double
 }

@@ -137,8 +137,66 @@
                                     <constraint firstAttribute="height" constant="70" id="x5h-tX-xqI"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M79-NW-KeV">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M79-NW-KeV">
                                 <rect key="frame" x="10" y="130.5" width="260" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="D7L-xa-XXb">
+                                        <rect key="frame" x="0.0" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="hY5-gZ-cnK"/>
+                                            <constraint firstAttribute="width" constant="30" id="pVa-ya-ROJ"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="Ddf-Qb-GVV">
+                                        <rect key="frame" x="38.5" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="6ZE-Fh-gav"/>
+                                            <constraint firstAttribute="height" constant="30" id="x1y-3X-v40"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="HmF-Jn-cf6">
+                                        <rect key="frame" x="76.5" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Pe9-qd-Clc"/>
+                                            <constraint firstAttribute="height" constant="30" id="WOO-UU-w1U"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="j1b-cJ-lLt">
+                                        <rect key="frame" x="115" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="2Aw-v1-cXH"/>
+                                            <constraint firstAttribute="height" constant="30" id="sTX-Pf-SFb"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="XOz-aU-8aB">
+                                        <rect key="frame" x="153.5" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="M5f-Ye-UqZ"/>
+                                            <constraint firstAttribute="height" constant="30" id="MCb-eF-ZqA"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="7Uw-fA-vfr">
+                                        <rect key="frame" x="191.5" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="BPC-AI-8Gr"/>
+                                            <constraint firstAttribute="height" constant="30" id="vgn-kn-xjO"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="days-empty" translatesAutoresizingMaskIntoConstraints="NO" id="dxd-vG-YtH">
+                                        <rect key="frame" x="230" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="VZU-Lf-g53"/>
+                                            <constraint firstAttribute="width" constant="30" id="oWb-ib-KVV"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="rKc-zv-02d"/>
@@ -173,11 +231,22 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" red="0.48107433319999998" green="0.45220375060000001" blue="0.98169916869999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="day1view" destination="D7L-xa-XXb" id="qRa-tp-sdZ"/>
+                <outlet property="day2view" destination="Ddf-Qb-GVV" id="ppM-y0-CnW"/>
+                <outlet property="day3view" destination="HmF-Jn-cf6" id="Gfy-yw-yxt"/>
+                <outlet property="day4view" destination="j1b-cJ-lLt" id="egD-Bf-aKN"/>
+                <outlet property="day5view" destination="7Uw-fA-vfr" id="KVL-BC-TRz"/>
+                <outlet property="day6view" destination="7Uw-fA-vfr" id="oHT-e6-nZr"/>
+                <outlet property="day7view" destination="dxd-vG-YtH" id="BDT-IO-Zr1"/>
+                <outlet property="historyStackView" destination="M79-NW-KeV" id="5qd-wx-eHk"/>
+            </connections>
             <point key="canvasLocation" x="143.47826086956522" y="87.723214285714278"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="days-empty" width="30" height="30"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

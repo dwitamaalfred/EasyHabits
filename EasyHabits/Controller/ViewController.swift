@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var habits = [HabitModel(name: "Coding Everyday", dayCount: [true,false,true,true], streak: 5, lives: 3),
-                  HabitModel(name: "Coding Everyday", dayCount: [true,false,true,true], streak: 5, lives: 3),
-                  HabitModel(name: "Coding Everyday", dayCount: [true,false,true,true], streak: 5, lives: 3)]
+    var habits = [HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3),
+                  HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3),
+                  HabitModel(name: "Coding Everyday", dayCount: ["done","done","failed","empty"], streak: 5, lives: 3)]
     
     @IBOutlet weak var addHabitButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
