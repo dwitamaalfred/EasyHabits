@@ -8,18 +8,21 @@
 import UIKit
 
 protocol MainViewDelegate {
-    func changeButtonStyle()
+    func updateHabitCards()
 }
 
 class ViewController: UIViewController {
     
-    var habits = [HabitModel(name: "Coding Everyday", status: ["empty","empty","empty","empty","empty","empty","empty"])]
+    var counter = 1
+    
+    var habits = [HabitModel(name: "habit 1", status: ["success","empty","empty","empty","empty","empty","empty"], streak: 1, lives: 3, totalDone: 1, modified: false, totalDays: 1),
+                  HabitModel(name: "habit 2", status: ["success","success","empty","empty","empty","empty","empty"], streak: 2, lives: 3, totalDone: 2, modified: false, totalDays: 2),
+                  HabitModel(name: "habit 3", status: ["success","success","success","empty","empty","empty","empty"], streak: 3, lives: 3, totalDone: 3, modified: false, totalDays: 3)]
     let blurEffectView = BlurEffectView()
     let defaults = UserDefaults.standard
-    var recordDays = Int()
-    var daysCounter = Int()
     
     var delegate: MainViewDelegate?
+    
     
     @IBOutlet weak var addHabitButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
@@ -29,6 +32,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
 //        NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
+        
         
         
         let date = Date()
@@ -45,86 +49,107 @@ class ViewController: UIViewController {
         
         habitTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
         habitTableView.rowHeight = 200
-        
         updateDate()
-        
-        var delegate : MainViewDelegate?
-        
         super.viewDidLoad()
-        
-        
-        // Do any additional setup after loading the view.
     }
-    
-//    @objc func calendarDayDidChange(_ notification : NSNotification) {
-//        print(habits)
-//
-//        DispatchQueue.main.async {
-//            for i in self.habits.indices {
-//                self.habits[i].modified = false
-//            }
-//            self.habitTableView.reloadData()
-//        }
-//    }
-    
    
     
     @IBAction func addDayButton(_ sender: Any) {
+        print(habits)
+        print("-------------------------------------------------------------------------------------------")
+//        let existingCell = self.habitTableView.visibleCells as! [CustomTableViewCell]
+        let newHabit = HabitModel(name: "test\(counter)")
+        self.counter += 1
+        self.habits.append(newHabit)
         
-        for i in self.habits.indices {
-            if self.habits[i].modified == false {
-                self.habits[i].status[daysCounter] = "failed"
-                self.habits[i].lives -= 1
-                for cell in self.habitTableView.visibleCells as! [CustomTableViewCell] {
-                    for item in cell.historyStackView.arrangedSubviews {
-                        item.removeFromSuperview()
-                    }
-                }
-                
-                for status in habits[i].status {
-                    let statusView = UIImageView()
-                    statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                    
-                    if status == "success" {
-                        statusView.image =  UIImage(named: "days-success")
-                    } else if status == "failed" {
-                        statusView.image =  UIImage(named: "days-failed")
-                    } else {
-                        statusView.image =  UIImage(named: "days-empty")
-                    }
-                    for cell in self.habitTableView.visibleCells as! [CustomTableViewCell] {
-                        cell.historyStackView.addArrangedSubview(statusView)
-                        print(cell.historyStackView.subviews.count)
-                    }
-                    
-                }
-            }
-            print(habits)
-            
-            self.habits[i].modified = false
-            self.daysCounter += 1
-            
-            if daysCounter == 7 {
-                self.habits[i].status = ["empty","empty","empty","empty","empty","empty","empty"]
-                daysCounter = 0
-            }
-         
-        }
+//        for (i, habit) in self.habits.enumerated() {
+//            self.habits[i].status[self.habits[i].totalDays % 7] = "failed"
+//                self.habits[i].lives -= 1
+//                self.habits[i].totalDays += 1
+//            if self.habits[i].totalDays == 7 { //reset statusnya jadi empty empty empty di minggu yang baru
+//                self.habits[i].status = ["empty","empty","empty","empty","empty","empty","empty"]
+//            }
+//
+//        }
         
-     
         DispatchQueue.main.async {
-            for cell in self.habitTableView.visibleCells as! [CustomTableViewCell] {
-                cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-                }
             self.habitTableView.reloadData()
         }
+        print(habits)
         
         
-       
         
         
-        //--------------------------------------------------------------------------------------------------------//
-
+        
+//        let existingCell = self.habitTableView.visibleCells as! [CustomTableViewCell]
+//        for i in self.habits.indices {
+//            if self.habits[i].modified == false {
+//                print(i)
+//                self.habits[i].status[self.habits[i].totalDays % 7] = "failed"
+//                self.habits[i].lives -= 1
+                
+                
+                //---- kalo lives nya habis
+//                if self.habits[i].lives == 0 {
+//                    let alertController = UIAlertController.init(title: "Habit Deleted", message: "You failed to maintain your habit", preferredStyle: .alert)
+//
+//                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] (action: UIAlertAction!) in
+//                        self.blurEffectView.removeFromSuperview()
+//                        self.habits.remove(at: i)
+//                        self.habitTableView.reloadData()
+//                    }))
+//
+//                    self.view.addSubview(blurEffectView)
+//                    self.present(alertController, animated: true, completion: nil)
+//                }
+                //----
+//            }
+            
+//            self.habits[i].modified = false // biar bisa di modified kembali
+//            self.habits[i].totalDays += 1 // biar total days dari tiap habitnya nambah
+//
+//            if self.habits[i].totalDays == 7 { //reset statusnya jadi empty empty empty di minggu yang baru
+//                self.habits[i].status = ["empty","empty","empty","empty","empty","empty","empty"]
+//            }
+//
+//            for cell in self.habitTableView.visibleCells as! [CustomTableViewCell] {
+//                for item in cell.historyStackView.arrangedSubviews {
+//                    item.removeFromSuperview()
+//                }
+//            }
+//            for status in habits[i].status { // buat nge update value status dari historystackview
+//                let statusView = UIImageView()
+//                statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//
+//                if status == "success" {
+//                    statusView.image =  UIImage(named: "days-success")
+//                } else if status == "failed" {
+//                    statusView.image =  UIImage(named: "days-failed")
+//                } else {
+//                    statusView.image =  UIImage(named: "days-empty")
+//                }
+//
+                
+//                existingCell[i].totalLivesLabel.text = String(self.habits[i].lives)
+            
+            
+//            existingCell[i].totalStreaksLabel.text = String(habits[i].totalDays)
+////                existingCell[i].historyStackView.removeFromSuperview()
+//                existingCell[i].historyStackView.addArrangedSubview(statusView)
+//                print("\( existingCell[i].habit.name) = \(existingCell[i].historyStackView.subviews.count)")
+//            }
+//            print(self.habits[i])
+//        }
+        
+//
+//        DispatchQueue.main.async {
+//            for cell in self.habitTableView.visibleCells as! [CustomTableViewCell] {
+//                cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+//                }
+            
+//        }
+      
+        
         let date = Date()
         let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         let formatter = DateFormatter()
@@ -132,38 +157,6 @@ class ViewController: UIViewController {
         formatter.locale = .current
         formatter.dateFormat = "E, d MMM yyyy"
         dateLabel.text = formatter.string(from: modifiedDate)
-
-//        print(habits)
-
-//        do {
-//            // Create JSON Encoder
-//            let encoder = JSONEncoder()
-//
-//            // Encode Note
-//            let data = try encoder.encode(habits)
-//
-//            // Write/Set Data
-//            UserDefaults.standard.set(data, forKey: "latestHabit")
-//
-//        } catch {
-//            print("Unable to Encode Note (\(error))")
-//        }
-//
-//
-//        if let data = UserDefaults.standard.data(forKey: "notes") {
-//            do {
-//                // Create JSON Decoder
-//                let decoder = JSONDecoder()
-//
-//                // Decode Note
-//                habits = try decoder.decode([HabitModel].self, from: data)
-//
-//            } catch {
-//                print("Unable to Decode Notes (\(error))")
-//            }
-//        }
-
-        //--------------------------------------------------------------------------------------------------------//
         
     }
     
@@ -216,26 +209,33 @@ class ViewController: UIViewController {
 }
 
 extension ViewController : UITableViewDelegate, ModifyHabitCardDelegate {
+    func updateCellValue(cell: CustomTableViewCell) {
+        print("test")
+    }
+    
     
     func didUpdateHabitValue(cell: CustomTableViewCell) {
         let indexPath = self.habitTableView.indexPath(for: cell)
         
         if cell.habit.modified == false{
-            cell.habit.daysCount += 1
-            cell.habit.streak += 1
-            cell.totalDaysLabel.text = String(cell.habit.daysCount)
-            cell.totalStreaksLabel.text = String(cell.habit.streak)
+            
+            cell.totalDaysLabel.text = String(cell.habit.totalDone)
+            cell.totalStreaksLabel.text = String(cell.habit.totalDays)
             cell.habit.modified = true
             cell.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
-            cell.habit.status[(self.daysCounter) % 7] = "success"
+            cell.habit.status[(cell.habit.totalDays) % 7] = "success"
+            cell.habit.totalDone += 1
+            cell.habit.streak += 1
+            
                 }else{
-                    cell.habit.daysCount -= 1
+                    cell.habit.totalDone -= 1
                     cell.habit.streak -= 1
                     cell.habit.modified = false
-                    cell.totalDaysLabel.text = String(cell.habit.daysCount)
-                    cell.totalStreaksLabel.text = String(cell.habit.streak)
+                    cell.totalDaysLabel.text = String(cell.habit.totalDone)
+                    cell.totalStreaksLabel.text = String(cell.habit.totalDays)
                     cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-                    cell.habit.status[(self.daysCounter) % 7] = "empty"
+                    cell.habit.status[(cell.habit.totalDays) % 7] = "empty"
+               
                 }
         habits[indexPath!.row] = cell.habit
     }
@@ -257,7 +257,6 @@ extension ViewController : UITableViewDataSource {
         cell.habit = habits[indexPath.row]
         cell.selectionStyle = .none
         cell.delegate = self
-        
         return cell
     }
 }

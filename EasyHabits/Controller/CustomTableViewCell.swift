@@ -9,18 +9,14 @@ import UIKit
 
 protocol ModifyHabitCardDelegate {
     func didUpdateHabitValue(cell:CustomTableViewCell)
+    func updateCellValue(cell:CustomTableViewCell)
 }
 
-class CustomTableViewCell: UITableViewCell, MainViewDelegate {
-   
-    func changeButtonStyle() {
-        print("pressed kah?")
-    }
-    
+class CustomTableViewCell: UITableViewCell {
+
     var habit = HabitModel(name: "", streak: 0)
-    var totalDays = Int()
-    var failed = Int()
     var mainView = ViewController()
+    
     
     
     var delegate: ModifyHabitCardDelegate?
@@ -40,19 +36,13 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
     @IBOutlet weak var historyStackView: UIStackView!
     
     override func awakeFromNib() {
-        
         super.awakeFromNib()
         
-        mainView.delegate = self
         
+        mainView.delegate = self
         updateStyling()
         
         DispatchQueue.main.async {
-            
-            self.habitTitleLabel.text = self.habit.name
-            self.totalDaysLabel.text = String(self.habit.daysCount)
-            self.totalStreaksLabel.text = String(self.habit.daysCount)
-            self.totalLivesLabel.text = String(self.habit.lives)
             
             self.updateRecords()
             
@@ -65,6 +55,7 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
     
     
     @IBAction func donePressed(_ sender: UIButton) {
+        
         delegate?.didUpdateHabitValue(cell: self)
         for item in self.historyStackView.arrangedSubviews {
             item.removeFromSuperview()
@@ -75,7 +66,14 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
  
     
     func updateRecords(){
-    
+        
+        
+        self.habitTitleLabel.text = self.habit.name
+        self.totalDaysLabel.text = String(self.habit.totalDone)
+        self.totalStreaksLabel.text = String(self.habit.totalDone)
+        self.totalLivesLabel.text = String(self.habit.lives)
+        
+        
         for status in habit.status {
             let statusView = UIImageView()
             statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -95,7 +93,6 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
         habitCardView.layer.cornerRadius = 20
         historyStackView.distribution = .equalSpacing
         
-    
         markDoneButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         markDoneButton.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         markDoneButton.layer.shadowOpacity = 1.0
@@ -104,4 +101,12 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
         markDoneButton.layer.cornerRadius = 4.0
     }
     
+}
+
+
+extension CustomTableViewCell : MainViewDelegate {
+    func updateHabitCards() {
+        
+        print("pressed from other vc")
+    }
 }

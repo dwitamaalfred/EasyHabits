@@ -12,6 +12,7 @@ struct HabitModel: Codable {
     var status : [String] = ["empty","empty","empty","empty","empty","empty","empty"]
     var streak : Int = 0
     var lives : Int = 3
-    var daysCount : Int = 0
+    var totalDone : Int = 0
     var modified : Bool = false
+    var totalDays : Int = 0
 }
