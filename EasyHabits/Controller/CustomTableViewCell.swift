@@ -9,7 +9,6 @@ import UIKit
 
 protocol ModifyHabitCardDelegate {
     func didUpdateHabitValue(cell:CustomTableViewCell)
-    func updateCellValue(cell:CustomTableViewCell)
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -39,7 +38,7 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         
-        mainView.delegate = self
+//        mainView.delegate = self
         updateStyling()
         
         DispatchQueue.main.async {
@@ -60,19 +59,39 @@ class CustomTableViewCell: UITableViewCell {
         for item in self.historyStackView.arrangedSubviews {
             item.removeFromSuperview()
         }
+        
+//        let indexPath = self.habitTableView.indexPath(for: cell)
+        
+        if habit.modified == false{
+            
+            self.totalDaysLabel.text = String(habit.totalDone)
+            self.totalStreaksLabel.text = String(habit.totalDays)
+            habit.modified = true
+            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
+            habit.status[(habit.totalDays) % 7] = "success"
+            habit.totalDone += 1
+            habit.streak += 1
+            
+                }else{
+                    habit.totalDone -= 1
+                    habit.streak -= 1
+                    habit.modified = false
+                    self.totalDaysLabel.text = String(habit.totalDone)
+                    self.totalStreaksLabel.text = String(habit.totalDays)
+                    self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+                    habit.status[(habit.totalDays) % 7] = "empty"
+               
+                }
+//        habits[indexPath!.row] = cell.habit
+        
         self.updateRecords()
     }
     
- 
-    
     func updateRecords(){
-        
-        
         self.habitTitleLabel.text = self.habit.name
         self.totalDaysLabel.text = String(self.habit.totalDone)
         self.totalStreaksLabel.text = String(self.habit.totalDone)
         self.totalLivesLabel.text = String(self.habit.lives)
-        
         
         for status in habit.status {
             let statusView = UIImageView()
@@ -92,7 +111,6 @@ class CustomTableViewCell: UITableViewCell {
     func updateStyling(){
         habitCardView.layer.cornerRadius = 20
         historyStackView.distribution = .equalSpacing
-        
         markDoneButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         markDoneButton.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         markDoneButton.layer.shadowOpacity = 1.0
@@ -105,8 +123,6 @@ class CustomTableViewCell: UITableViewCell {
 
 
 extension CustomTableViewCell : MainViewDelegate {
-    func updateHabitCards() {
-        
-        print("pressed from other vc")
+    func updateHabitCards() { 
     }
 }
