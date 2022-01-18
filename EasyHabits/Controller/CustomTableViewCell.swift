@@ -14,8 +14,7 @@ protocol ModifyHabitCardDelegate {
 class CustomTableViewCell: UITableViewCell, MainViewDelegate {
    
     func changeButtonStyle() {
-        print("test")
-        markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+        print("pressed kah?")
     }
     
     var habit = HabitModel(name: "", streak: 0)
@@ -80,7 +79,7 @@ class CustomTableViewCell: UITableViewCell, MainViewDelegate {
         for status in habit.status {
             let statusView = UIImageView()
             statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            
+
             if status == "success" {
                 statusView.image =  UIImage(named: "days-success")
             } else if status == "failed" {
