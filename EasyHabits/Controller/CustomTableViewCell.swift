@@ -14,7 +14,7 @@ protocol ModifyHabitCardDelegate {
 class CustomTableViewCell: UITableViewCell {
 
     var habit = HabitModel(name: "", streak: 0)
-    var mainView = ViewController()
+    
     
     
     
@@ -29,22 +29,13 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var totalDaysLabel: UILabel!
     @IBOutlet weak var habitTitleLabel: UILabel!
     @IBOutlet weak var markDoneButton: UIButton!
-    
-    
-    
     @IBOutlet weak var historyStackView: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-//        mainView.delegate = self
         updateStyling()
-        
         DispatchQueue.main.async {
-            
             self.updateRecords()
-            
         }
     }
 
@@ -59,8 +50,6 @@ class CustomTableViewCell: UITableViewCell {
         for item in self.historyStackView.arrangedSubviews {
             item.removeFromSuperview()
         }
-        
-//        let indexPath = self.habitTableView.indexPath(for: cell)
         
         if habit.modified == false{
             
@@ -88,24 +77,24 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func updateRecords(){
-        self.habitTitleLabel.text = self.habit.name
-        self.totalDaysLabel.text = String(self.habit.totalDone)
-        self.totalStreaksLabel.text = String(self.habit.totalDone)
-        self.totalLivesLabel.text = String(self.habit.lives)
+//        self.habitTitleLabel.text = self.habit.name
+//        self.totalDaysLabel.text = String(self.habit.totalDone)
+//        self.totalStreaksLabel.text = String(self.habit.totalDone)
+//        self.totalLivesLabel.text = String(self.habit.lives)
         
-        for status in habit.status {
-            let statusView = UIImageView()
-            statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-
-            if status == "success" {
-                statusView.image =  UIImage(named: "days-success")
-            } else if status == "failed" {
-                statusView.image =  UIImage(named: "days-failed")
-            } else {
-                statusView.image =  UIImage(named: "days-empty")
-            }
-            historyStackView.addArrangedSubview(statusView)
-        }
+//        for status in habit.status {
+//            let statusView = UIImageView()
+//            statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//
+//            if status == "success" {
+//                statusView.image =  UIImage(named: "days-success")
+//            } else if status == "failed" {
+//                statusView.image =  UIImage(named: "days-failed")
+//            } else {
+//                statusView.image =  UIImage(named: "days-empty")
+//            }
+//            historyStackView.addArrangedSubview(statusView)
+//        }
     }
     
     func updateStyling(){
@@ -122,7 +111,5 @@ class CustomTableViewCell: UITableViewCell {
 }
 
 
-extension CustomTableViewCell : MainViewDelegate {
-    func updateHabitCards() { 
-    }
-}
+
+
