@@ -72,7 +72,7 @@
                                         <color key="textColor" systemColor="systemGray3Color"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="Qo0-Qu-gbc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="done" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="Qo0-Qu-gbc">
                                         <rect key="frame" x="10" y="45.5" width="60" height="14.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="o6G-dw-yA6"/>
@@ -81,7 +81,7 @@
                                         <color key="textColor" systemColor="systemGray3Color"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="streaks" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="zST-NA-VEx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="zST-NA-VEx">
                                         <rect key="frame" x="70" y="45.5" width="60" height="14.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="P1Q-d4-7EI"/>
@@ -181,9 +181,9 @@
                 <outlet property="historyStackView" destination="M79-NW-KeV" id="5qd-wx-eHk"/>
                 <outlet property="markDoneButton" destination="xNt-a6-tiT" id="Br6-66-J0E"/>
                 <outlet property="settingButton" destination="Zmp-Ww-E7c" id="1gs-wM-frx"/>
-                <outlet property="totalDaysLabel" destination="JRw-4V-8vH" id="dwL-83-bE5"/>
+                <outlet property="totalDaysDone" destination="JRw-4V-8vH" id="qFW-LL-w2J"/>
+                <outlet property="totalDaysLabel" destination="EFE-Ms-R00" id="z6d-tp-EM1"/>
                 <outlet property="totalLivesLabel" destination="agA-zq-Lph" id="kdo-VR-cW9"/>
-                <outlet property="totalStreaksLabel" destination="EFE-Ms-R00" id="c8u-b0-6XT"/>
             </connections>
             <point key="canvasLocation" x="143.47826086956522" y="87.723214285714278"/>
         </tableViewCell>

@@ -10,7 +10,6 @@ import Foundation
 struct HabitModel: Codable {
     var name : String
     var status : [String] = ["empty","empty","empty","empty","empty","empty","empty"]
-    var streak : Int = 0
     var lives : Int = 3
     var totalDone : Int = 0
     var modified : Bool = false

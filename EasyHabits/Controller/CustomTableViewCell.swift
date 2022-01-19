@@ -13,7 +13,7 @@ protocol ModifyHabitCardDelegate {
 
 class CustomTableViewCell: UITableViewCell {
 
-    var habit = HabitModel(name: "", streak: 0)
+    var habit = HabitModel(name: "")
     
     
     
@@ -24,8 +24,8 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var settingButton: UIButton!
     
+    @IBOutlet weak var totalDaysDone: UILabel!
     @IBOutlet weak var totalLivesLabel: UILabel!
-    @IBOutlet weak var totalStreaksLabel: UILabel!
     @IBOutlet weak var totalDaysLabel: UILabel!
     @IBOutlet weak var habitTitleLabel: UILabel!
     @IBOutlet weak var markDoneButton: UIButton!
@@ -34,9 +34,9 @@ class CustomTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateStyling()
-        DispatchQueue.main.async {
-            self.updateRecords()
-        }
+//        DispatchQueue.main.async {
+//            self.updateRecords()
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -45,42 +45,73 @@ class CustomTableViewCell: UITableViewCell {
     
     
     @IBAction func donePressed(_ sender: UIButton) {
-        
+        print("test")
         delegate?.didUpdateHabitValue(cell: self)
+        
+        if habit.modified == false {
+            habit.totalDone += 1
+            habit.modified = true
+            habit.status[(habit.totalDays) % 7] = "success"
+            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
+            
+        }else{
+            habit.totalDone -= 1
+            habit.modified = false
+            habit.status[(habit.totalDays) % 7] = "empty"
+            self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+            
+        }
+        
+        updateHabit()
+        
         for item in self.historyStackView.arrangedSubviews {
             item.removeFromSuperview()
         }
         
-        if habit.modified == false{
-            
-            self.totalDaysLabel.text = String(habit.totalDone)
-            self.totalStreaksLabel.text = String(habit.totalDays)
-            habit.modified = true
-            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
-            habit.status[(habit.totalDays) % 7] = "success"
-            habit.totalDone += 1
-            habit.streak += 1
-            
-                }else{
-                    habit.totalDone -= 1
-                    habit.streak -= 1
-                    habit.modified = false
-                    self.totalDaysLabel.text = String(habit.totalDone)
-                    self.totalStreaksLabel.text = String(habit.totalDays)
-                    self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-                    habit.status[(habit.totalDays) % 7] = "empty"
-               
-                }
-//        habits[indexPath!.row] = cell.habit
+                for status in habit.status {
+                    let statusView = UIImageView()
+                    statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
-        self.updateRecords()
+                    if status == "success" {
+                        statusView.image =  UIImage(named: "days-success")
+                    } else if status == "failed" {
+                        statusView.image =  UIImage(named: "days-failed")
+                    } else {
+                        statusView.image =  UIImage(named: "days-empty")
+                    }
+                    historyStackView.addArrangedSubview(statusView)
+                }
+        
+        
+//        if habit.modified == false{
+//
+//            self.totalDaysLabel.text = String(habit.totalDone)
+//            self.totalStreaksLabel.text = String(habit.totalDays)
+//            self.habit.modified = true
+//            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
+//            habit.status[(habit.totalDays) % 7] = "success"
+//            habit.totalDone += 1
+//            habit.streak += 1
+//
+//                }else{
+//                    habit.totalDone -= 1
+//                    habit.streak -= 1
+//                    habit.modified = false
+//                    self.totalDaysLabel.text = String(habit.totalDone)
+//                    self.totalStreaksLabel.text = String(habit.totalDays)
+//                    self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+//                    habit.status[(habit.totalDays) % 7] = "empty"
+//
+//                }
+//        habits[indexPath!.row] = cell.habit
     }
     
-    func updateRecords(){
-//        self.habitTitleLabel.text = self.habit.name
-//        self.totalDaysLabel.text = String(self.habit.totalDone)
-//        self.totalStreaksLabel.text = String(self.habit.totalDone)
-//        self.totalLivesLabel.text = String(self.habit.lives)
+    func updateHabit(){
+        
+        self.habitTitleLabel.text = self.habit.name
+        self.totalDaysDone.text = String(self.habit.totalDone)
+        self.totalDaysLabel.text = String(self.habit.totalDays)
+        self.totalLivesLabel.text = String(self.habit.lives)
         
 //        for status in habit.status {
 //            let statusView = UIImageView()

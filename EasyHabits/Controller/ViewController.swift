@@ -11,9 +11,10 @@ class ViewController: UIViewController {
     
     var counter = 1
     
-    var habits = [HabitModel(name: "habit 1", status: ["success","empty","empty","empty","empty","empty","empty"], streak: 1, lives: 1, totalDone: 1, modified: false, totalDays: 1),
-                  HabitModel(name: "habit 2", status: ["success","success","empty","empty","empty","empty","empty"], streak: 2, lives: 2, totalDone: 2, modified: false, totalDays: 2),
-                  HabitModel(name: "habit 3", status: ["success","success","success","empty","empty","empty","empty"], streak: 3, lives: 3, totalDone: 3, modified: false, totalDays: 3)]
+    var habits = [HabitModel(name: "habit 1", status: ["empty","empty","empty","empty","empty","empty","empty"], lives: 3, totalDone: 0, modified: false, totalDays: 0),
+                  HabitModel(name: "habit 2", status: ["success","success","empty","empty","empty","empty","empty"], lives: 2, totalDone: 2, modified: false, totalDays: 2)
+//                  HabitModel(name: "habit 3", status: ["success","success","success","empty","empty","empty","empty"], lives: 3, totalDone: 3, modified: false, totalDays: 3)
+                ]
     let blurEffectView = BlurEffectView()
     let defaults = UserDefaults.standard
     
@@ -54,16 +55,13 @@ class ViewController: UIViewController {
 
     @IBAction func addDayButton(_ sender: Any) {
         
-//        delegate.updateCell()
         habits.removeAll(where: {$0.lives == 0})
-//        let existingCell = self.habitTableView.visibleCells as! [CustomTableViewCell]
         
         for i in self.habits.indices {
+            
             if self.habits[i].modified == false {
                 self.habits[i].status[self.habits[i].totalDays % 7] = "failed"
                 self.habits[i].lives -= 1
-                
-                
 //                ---- kalo lives nya habis
 //                if self.habits[i].lives == 0 {
 //                    self.habits.remove(at: i)
@@ -81,8 +79,11 @@ class ViewController: UIViewController {
 //                    self.present(alertController, animated: true, completion: nil)
 //                }
 //                ----
-            }
+            } else {
+                self.habits[i].status[(self.habits[i].totalDays) % 7] = "success"
                 self.habits[i].modified = false // biar bisa di modified kembali
+            }
+                
                 self.habits[i].totalDays += 1 // biar total days dari tiap habitnya nambah
                 if self.habits[i].totalDays % 7 == 0 && self.habits[i].totalDays != 0 { //reset statusnya jadi empty empty empty di minggu yang baru
                         self.habits[i].status = ["empty","empty","empty","empty","empty","empty","empty"]
@@ -137,7 +138,7 @@ class ViewController: UIViewController {
         dateLabel.text = formatter.string(from: modifiedDate)
     
         habitTableView.reloadData()
-        print(habits.count)
+        print(habits)
     }
     
     
@@ -156,7 +157,8 @@ class ViewController: UIViewController {
         
         alertController.addAction(UIAlertAction(title: "add", style: .default, handler: { [self] (action: UIAlertAction!) in
             let habitName = alertController.textFields![0] as UITextField
-            let newHabit = HabitModel(name: habitName.text!)
+            var newHabit = HabitModel(name: habitName.text!)
+            newHabit.modified = false
             self.habits.append(newHabit)
             habitTableView.reloadData()
             
@@ -204,10 +206,10 @@ extension ViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
 //        cell.prepareForReuse()
         cell.selectionStyle = .none
-//        cell.habit = habits[indexPath.row]
+        cell.habit = habits[indexPath.row]
         cell.habitTitleLabel.text = habits[indexPath.row].name
-        cell.totalDaysLabel.text = String(habits[indexPath.row].totalDone)
-        cell.totalStreaksLabel.text = String(habits[indexPath.row].totalDone)
+        cell.totalDaysLabel.text = String(habits[indexPath.row].totalDays)
+        cell.totalDaysDone.text = String(habits[indexPath.row].totalDone)
         cell.totalLivesLabel.text = String(habits[indexPath.row].lives)
         cell.delegate = self
         
@@ -242,28 +244,39 @@ extension ViewController : ModifyHabitCardDelegate {
     
     
     func didUpdateHabitValue(cell: CustomTableViewCell) {
-//        let indexPath = self.habitTableView.indexPath(for: cell)
-//        
-//        if cell.habit.modified == false{
-//            
-//            cell.totalDaysLabel.text = String(cell.habit.totalDone)
-//            cell.totalStreaksLabel.text = String(cell.habit.totalDays)
-//            cell.habit.modified = true
-//            cell.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
-//            cell.habit.status[(cell.habit.totalDays) % 7] = "success"
-//            cell.habit.totalDone += 1
-//            cell.habit.streak += 1
-//            
-//                }else{
-//                    cell.habit.totalDone -= 1
-//                    cell.habit.streak -= 1
-//                    cell.habit.modified = false
-//                    cell.totalDaysLabel.text = String(cell.habit.totalDone)
-//                    cell.totalStreaksLabel.text = String(cell.habit.totalDays)
-//                    cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-//                    cell.habit.status[(cell.habit.totalDays) % 7] = "empty"
-//               
-//                }
-//        habits[indexPath!.row] = cell.habit
+        
+        for i in self.habits.indices {
+            
+            if self.habits[i].modified == false {
+                self.habits[i].totalDone += 1
+                self.habits[i].modified = true
+                self.habits[i].status[(self.habits[i].totalDays) % 7] = "success"
+            }else{
+                self.habits[i].totalDone -= 1
+                self.habits[i].modified = false
+                self.habits[i].status[(self.habits[i].totalDays) % 7] = "empty"
+            }
+            
+           
+            let cell = habitTableView.cellForRow(at: IndexPath(row: i, section: 0)) as! CustomTableViewCell
+                for item in cell.historyStackView.arrangedSubviews {
+                    item.removeFromSuperview()
+                }
+
+            for status in habits[i].status { // buat nge update value status dari historystackview
+                let statusView = UIImageView()
+                statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+
+                if status == "success" {
+                    statusView.image =  UIImage(named: "days-success")
+                } else if status == "failed" {
+                    statusView.image =  UIImage(named: "days-failed")
+                } else {
+                    statusView.image =  UIImage(named: "days-empty")
+                }
+                cell.historyStackView.addArrangedSubview(statusView)
+            }
+        }
+        print("habit after updated \(habits)")
     }
 }
