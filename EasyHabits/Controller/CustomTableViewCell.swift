@@ -15,8 +15,9 @@ class CustomTableViewCell: UITableViewCell {
 
     var habit = HabitModel(name: "")
     
-    
-    
+    @IBOutlet weak var cetagoryDoneLabel: UILabel!
+    @IBOutlet weak var categoryDaysLabel: UILabel!
+    @IBOutlet weak var categoryLivesLabel: UILabel!
     
     var delegate: ModifyHabitCardDelegate?
     
@@ -45,6 +46,7 @@ class CustomTableViewCell: UITableViewCell {
     
     
     @IBAction func donePressed(_ sender: UIButton) {
+
         delegate?.didUpdateHabitValue(cell: self)
         
         if habit.modified == false {

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,7 +53,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <color key="tintColor" systemColor="systemBlueColor"/>
+                        <color key="tintColor" name="habit-blue"/>
                         <constraints>
                             <constraint firstItem="pGl-yh-3ai" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0zb-ce-ztC"/>
                             <constraint firstItem="pGl-yh-3ai" firstAttribute="top" secondItem="n0u-PX-DZe" secondAttribute="bottom" constant="15" id="20v-Ce-jo7"/>
@@ -82,9 +83,9 @@
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <namedColor name="habit-blue">
+            <color red="0.36862745098039218" green="0.54509803921568623" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
