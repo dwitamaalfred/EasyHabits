@@ -45,7 +45,6 @@ class CustomTableViewCell: UITableViewCell {
     
     
     @IBAction func donePressed(_ sender: UIButton) {
-        print("test")
         delegate?.didUpdateHabitValue(cell: self)
         
         if habit.modified == false {

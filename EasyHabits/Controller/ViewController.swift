@@ -238,15 +238,12 @@ extension ViewController : UITableViewDataSource {
 
 
 extension ViewController : ModifyHabitCardDelegate {
-    func updateOtherValue(cell: CustomTableViewCell) {
-        
-    }
-    
-    
     func didUpdateHabitValue(cell: CustomTableViewCell) {
-        
-        for i in self.habits.indices {
-            
+//        guard let cell = cell.superview?.superview as? CustomTableViewCell else {
+//            return // or fatalError() or whatever
+//        }
+
+        let i = habitTableView.indexPath(for: cell)?.row as! Int
             if self.habits[i].modified == false {
                 self.habits[i].totalDone += 1
                 self.habits[i].modified = true
@@ -256,8 +253,8 @@ extension ViewController : ModifyHabitCardDelegate {
                 self.habits[i].modified = false
                 self.habits[i].status[(self.habits[i].totalDays) % 7] = "empty"
             }
-            
-           
+
+
             let cell = habitTableView.cellForRow(at: IndexPath(row: i, section: 0)) as! CustomTableViewCell
                 for item in cell.historyStackView.arrangedSubviews {
                     item.removeFromSuperview()
@@ -276,7 +273,7 @@ extension ViewController : ModifyHabitCardDelegate {
                 }
                 cell.historyStackView.addArrangedSubview(statusView)
             }
-        }
+//        }
         print("habit after updated \(habits)")
     }
 }
