@@ -9,6 +9,7 @@ import UIKit
 
 protocol ModifyHabitCardDelegate {
     func didUpdateHabitValue(cell:CustomTableViewCell)
+    func settingCellPressed(cell:CustomTableViewCell)
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -42,6 +43,24 @@ class CustomTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    @IBAction func settingButtonPressed(_ sender: Any) {
+        delegate?.settingCellPressed(cell: self)
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        let editAction = UIAlertAction(title: "edit", style: .default) { (action) in
+//            print("edit pressed")
+//        }
+//        let deleteAction = UIAlertAction(title: "delete", style: .default) { (action) in
+//            print("delete pressed")
+//        }
+//        let cancelAction = UIAlertAction(title: "cancel", style: .default) { (action) in
+//            print("cancel pressed")
+//        }
+//        actionSheet.addAction(editAction)
+//        actionSheet.addAction(deleteAction)
+//        actionSheet.addAction(cancelAction)
+        
     }
     
     

@@ -144,10 +144,6 @@ class ViewController: UIViewController {
     
     @IBAction func addHabitButton(_ sender: Any) {
         
-        let blurEffect = UIBlurEffect(style: .dark)
-        let blurVisualEffectView = UIVisualEffectView(effect: blurEffect)
-        blurVisualEffectView.frame = view.bounds
-        blurVisualEffectView.alpha = 0.4
         
         let alertController = UIAlertController.init(title: "New Habit", message: "that will determine your future", preferredStyle: .alert)
         
@@ -159,7 +155,7 @@ class ViewController: UIViewController {
             let habitName = alertController.textFields![0] as UITextField
             var newHabit = HabitModel(name: habitName.text!)
             newHabit.modified = false
-            self.habits.append(newHabit)
+            self.habits.insert(newHabit, at: 0)
             habitTableView.reloadData()
             
             self.blurEffectView.removeFromSuperview()
@@ -238,6 +234,31 @@ extension ViewController : UITableViewDataSource {
 
 
 extension ViewController : ModifyHabitCardDelegate {
+    func settingCellPressed(cell: CustomTableViewCell) {
+        self.view.addSubview(blurEffectView)
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "edit", style: .default) { (action) in
+            print("edit pressed")
+            self.blurEffectView.removeFromSuperview()
+        }
+        let deleteAction = UIAlertAction(title: "delete", style: .destructive) { (action) in
+            self.blurEffectView.removeFromSuperview()
+            let index = self.habitTableView.indexPath(for: cell)?.row as! Int
+            
+            self.habits.remove(at: index)
+            self.habitTableView.reloadData()
+            
+        }
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { (action) in
+            self.blurEffectView.removeFromSuperview()
+        }
+        actionSheet.addAction(editAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
     func didUpdateHabitValue(cell: CustomTableViewCell) {
 //        guard let cell = cell.superview?.superview as? CustomTableViewCell else {
 //            return // or fatalError() or whatever

@@ -195,7 +195,7 @@
                                     <color key="baseForegroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="updateDate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nzD-sL-DWq"/>
+                                    <action selector="settingButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xQh-Tk-pBQ"/>
                                 </connections>
                             </button>
                         </subviews>
