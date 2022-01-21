@@ -84,7 +84,7 @@
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="habit-blue">
-            <color red="0.36862745098039218" green="0.54509803921568623" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.36899999999999999" green="0.54500000000000004" blue="0.85499999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD13A75027957BE60006D221 /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD13A74F27957BE60006D221 /* BlurEffectView.swift */; };
+		AD1D7A03279B00B600130D06 /* EmptyStateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D7A02279B00B600130D06 /* EmptyStateHelper.swift */; };
 		AD37BF942793EA1F000B5602 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37BF932793EA1F000B5602 /* AppDelegate.swift */; };
 		AD37BF962793EA1F000B5602 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37BF952793EA1F000B5602 /* SceneDelegate.swift */; };
 		AD37BF982793EA1F000B5602 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37BF972793EA1F000B5602 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		AD13A74F27957BE60006D221 /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
+		AD1D7A02279B00B600130D06 /* EmptyStateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateHelper.swift; sourceTree = "<group>"; };
 		AD37BF902793EA1F000B5602 /* EasyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37BF932793EA1F000B5602 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD37BF952793EA1F000B5602 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				AD37BF972793EA1F000B5602 /* ViewController.swift */,
+				AD1D7A02279B00B600130D06 /* EmptyStateHelper.swift */,
 				AD13A74F27957BE60006D221 /* BlurEffectView.swift */,
 				AD6CC76A27946EF400AF35A1 /* CustomTableViewCell.swift */,
 			);
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6CC76C27946EF400AF35A1 /* CustomTableViewCell.swift in Sources */,
+				AD1D7A03279B00B600130D06 /* EmptyStateHelper.swift in Sources */,
 				AD37BFAD2793EDC8000B5602 /* HabitModel.swift in Sources */,
 				AD37BF9E2793EA1F000B5602 /* EasyHabits.xcdatamodeld in Sources */,
 				AD13A75027957BE60006D221 /* BlurEffectView.swift in Sources */,

@@ -337,6 +337,12 @@ extension ViewController : UITableViewDelegate {
 extension ViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        print(habits.count)
+        if habits.count == 0 {
+            self.habitTableView.setEmptyMessage("You don't have any on going Habit.")
+           } else {
+               self.habitTableView.restore()
+           }
+
         return habits.count
     }
     
@@ -480,3 +486,5 @@ extension ViewController : ModifyHabitCardDelegate {
         self.habitTableView.reloadData()
     }
 }
+
+
