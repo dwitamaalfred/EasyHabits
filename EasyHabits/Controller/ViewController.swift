@@ -56,11 +56,6 @@ class ViewController: UIViewController {
         print("view Appear")
     }
    
-    override func viewDidDisappear(_ animated: Bool) {
-        print(habits[0])
-    }
-    
-    
     func fetchCoreData() {
 //        habitTableView.deleteRows(at: [IndexPath], with: .automatic)
         let request = HabitsData.fetchRequest() as NSFetchRequest<HabitsData>
@@ -278,11 +273,48 @@ extension ViewController : UITableViewDataSource {
 extension ViewController : ModifyHabitCardDelegate {
     func settingCellPressed(cell: CustomTableViewCell) {
         self.view.addSubview(blurEffectView)
-        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let editAction = UIAlertAction(title: "edit", style: .default) { (action) in
-            print("edit pressed")
+        let editAction = UIAlertAction(title: "edit", style: .default) { [self] (action) in
+            
+            let i = habitTableView.indexPath(for: cell)?.row ?? 0
+            
+            let alertController = UIAlertController.init(title: "Edit Habit", message: "update your habit", preferredStyle: .alert)
+    //
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.text = (self.habits[i]?.name)! as String
+               }
+    //
+            alertController.addAction(UIAlertAction(title: "Update", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let habitName = alertController.textFields![0] as UITextField
+                
+                self.habits[i]?.name = habitName.text
+//                newHabit.modified = false
+//                newHabit.dateCreated = Date()
+//                newHabit.status = ["empty","empty","empty","empty","empty","empty","empty"] as NSObject
+    //            self.habits.insert(newHabit, at: 0)
+                
+                do {
+                    try self.context.save()
+                }catch{
+                    print("failed to save data")
+                }
+                habitTableView.reloadData()
+                self.fetchCoreData()
+                self.blurEffectView.removeFromSuperview()
+            }))
+    //
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                self.blurEffectView.removeFromSuperview()
+             }))
+
+
+            self.view.addSubview(self.blurEffectView)
+            self.present(alertController, animated: true, completion: nil)
+            
+            
             self.blurEffectView.removeFromSuperview()
+            
+            
         }
         let deleteAction = UIAlertAction(title: "delete", style: .destructive) { (action) in
             self.blurEffectView.removeFromSuperview()
@@ -313,13 +345,13 @@ extension ViewController : ModifyHabitCardDelegate {
 ////        guard let cell = cell.superview?.superview as? CustomTableViewCell else {
 ////            return // or fatalError() or whatever
 ////        }
-//
+
         let i = habitTableView.indexPath(for: cell)?.row ?? 0
-//
+
 //        var statusArray = habits[i]!.status as! [AnyObject]
 //        var changedDay = Int((self.habits[i]!.totalDays)) % 7
 //        var changedStatus = statusArray[changedDay]
-//
+
         var habitStatus = (self.habits[i]?.status)! as! [String]
         if self.habits[i]!.modified == false {
             self.habits[i]!.totalDone += 1
@@ -332,19 +364,15 @@ extension ViewController : ModifyHabitCardDelegate {
                 habitStatus[i % 7] = "false"
             }
         self.habits[i]!.status = habitStatus as NSObject
-        
-  
-
-
             let cell = habitTableView.cellForRow(at: IndexPath(row: i, section: 0)) as! CustomTableViewCell
                 for item in cell.historyStackView.arrangedSubviews {
                     item.removeFromSuperview()
                 }
-//
+
 //        for status in habits[i]!.status as! [AnyObject] { // buat nge update value status dari historystackview
 //                let statusView = UIImageView()
 //                statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//
+
 //            if status as! String == "success" {
 //                    statusView.image =  UIImage(named: "days-success")
 //                } else if status as! String == "failed" {
