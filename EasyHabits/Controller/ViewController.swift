@@ -53,19 +53,20 @@ class ViewController: UIViewController {
         updateDate()
         self.fetchCoreData()
         super.viewDidLoad()
-        print("view Appear")
     }
    
     func fetchCoreData() {
 //        habitTableView.deleteRows(at: [IndexPath], with: .automatic)
         let request = HabitsData.fetchRequest() as NSFetchRequest<HabitsData>
-//        let sort = NSSortDescriptor(key: "date", ascending: true)
-//        request.sortDescriptors = [sort]
+        let sort = NSSortDescriptor(key: "dateCreated", ascending: false)
+        request.sortDescriptors = [sort]
         
         do {
             self.habits = try context.fetch(request)
             DispatchQueue.main.async {
-                print(self.habits)
+                if self.habits.count == 0 {
+                    print("empty state")
+                }
                 self.habitTableView.reloadData()
             }
             
@@ -77,8 +78,15 @@ class ViewController: UIViewController {
 
     @IBAction func addDayButton(_ sender: Any) {
         
-//        habits.removeAll(where: {$0.lives == 0})
-//
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HabitsData")
+        habitLiveChecker(fetchRequest: request)
+        habitFailedUpdate(fetchRequest: request)
+        habitSuccessUpdate(fetchRequest: request)
+        habitWeekUpdate(fetchRequest: request)
+        
+        self.fetchCoreData()
+        habitTableView.reloadData()
+        
 //        for i in self.habits.indices {
 //
 //            if self.habits[i].modified == false {
@@ -151,15 +159,15 @@ class ViewController: UIViewController {
 //
 //        }
 //
-//        let date = Date()
-//        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-//        let formatter = DateFormatter()
-//        formatter.timeZone = .current
-//        formatter.locale = .current
-//        formatter.dateFormat = "E, d MMM yyyy"
-//        dateLabel.text = formatter.string(from: modifiedDate)
-//
-//        habitTableView.reloadData()
+        let date = Date()
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        let formatter = DateFormatter()
+        formatter.timeZone = .current
+        formatter.locale = .current
+        formatter.dateFormat = "E, d MMM yyyy"
+        dateLabel.text = formatter.string(from: modifiedDate)
+
+        habitTableView.reloadData()
 //        print(habits)
     }
     
@@ -178,6 +186,7 @@ class ViewController: UIViewController {
             let newHabit = HabitsData(context: self.context)
             newHabit.name = habitName.text
             newHabit.modified = false
+            newHabit.lives = 3
             newHabit.dateCreated = Date()
             newHabit.status = ["empty","empty","empty","empty","empty","empty","empty"] as NSObject
 //            self.habits.insert(newHabit, at: 0)
@@ -187,8 +196,8 @@ class ViewController: UIViewController {
             }catch{
                 print("failed to save data")
             }
-            habitTableView.reloadData()
             self.fetchCoreData()
+            habitTableView.reloadData()
             self.blurEffectView.removeFromSuperview()
         }))
 //
@@ -215,6 +224,108 @@ class ViewController: UIViewController {
         cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
     }
     
+    func habitLiveChecker(fetchRequest : NSFetchRequest<NSFetchRequestResult>){
+        fetchRequest.predicate = NSPredicate(format: "lives = 1 AND modified == NO")
+        
+        
+        do {
+            
+            let records = try context.fetch(fetchRequest)
+
+               for record in records {
+                   context.delete(record as! NSManagedObject)
+               }
+            try context.save()
+            
+//            self.fetchCoreData()
+//            habitTableView.reloadData()
+        } catch _ {
+            // error handling
+        }
+    }
+    
+    func habitWeekUpdate(fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
+        let checkHabitWeek = fetchRequest
+        checkHabitWeek.predicate = NSPredicate(format: "totalDays != 0")
+        do {
+            
+            let records = try context.fetch(fetchRequest)
+
+               for record in records {
+                   let filteredRecord = record as! HabitsData
+                   var status = filteredRecord.status as! [String]
+                   if filteredRecord.totalDays % 7 == 0 {
+                       filteredRecord.status =  ["empty","empty","empty","empty","empty","empty","empty"] as NSObject
+                   }
+               }
+            try context.save()
+     
+        } catch _ {
+            // error handling
+        }
+    }
+    
+    func habitFailedUpdate(fetchRequest: NSFetchRequest<NSFetchRequestResult>){
+        let checkTheUndone = fetchRequest
+        checkTheUndone.predicate = NSPredicate(format:  "modified == NO")
+        
+        do {
+            let undoneRecords = try context.fetch(checkTheUndone)
+               for record in undoneRecords {
+                   let filteredRecord = record as! HabitsData
+                   var status = filteredRecord.status as! [String]
+                   if filteredRecord.modified == false {
+                       filteredRecord.lives -= 1
+                       status[Int(filteredRecord.totalDays) % 7] = "failed"
+                       filteredRecord.status = status as NSObject
+                   }
+                   filteredRecord.totalDays += 1
+                   do {
+                       try self.context.save()
+                       
+                   }catch{
+                       print("failed to save data")
+                   }
+                   
+                   
+//                   habitTableView.reloadData()
+//                   self.fetchCoreData()
+//                   self.blurEffectView.removeFromSuperview()
+                   
+               }
+        } catch _ {
+            print("failed update habits")
+            // error handling
+        }
+    }
+    
+    func habitSuccessUpdate(fetchRequest: NSFetchRequest<NSFetchRequestResult>){
+        let checkTheDone = fetchRequest
+        checkTheDone.predicate = NSPredicate(format:  "modified == YES")
+        
+        do {
+            let undoneRecords = try context.fetch(checkTheDone)
+               for record in undoneRecords {
+                   let filteredRecord = record as! HabitsData
+                   filteredRecord.totalDays += 1
+                   filteredRecord.modified = false
+                   do {
+                       try self.context.save()
+                   }catch{
+                       print("failed to save data")
+                   }
+                   
+                   
+                   habitTableView.reloadData()
+                   self.fetchCoreData()
+                   self.blurEffectView.removeFromSuperview()
+                   
+               }
+        } catch _ {
+            print("failed update habits")
+            // error handling
+        }
+    }
 }
 
 extension ViewController : UITableViewDelegate {
@@ -264,7 +375,6 @@ extension ViewController : UITableViewDataSource {
             }
             cell.historyStackView.addArrangedSubview(statusView)
         }
-
         return cell
     }
 }
@@ -342,46 +452,24 @@ extension ViewController : ModifyHabitCardDelegate {
     }
     
     func didUpdateHabitValue(cell: CustomTableViewCell) {
-////        guard let cell = cell.superview?.superview as? CustomTableViewCell else {
-////            return // or fatalError() or whatever
-////        }
-
         let i = habitTableView.indexPath(for: cell)?.row ?? 0
-
-//        var statusArray = habits[i]!.status as! [AnyObject]
-//        var changedDay = Int((self.habits[i]!.totalDays)) % 7
-//        var changedStatus = statusArray[changedDay]
 
         var habitStatus = (self.habits[i]?.status)! as! [String]
         if self.habits[i]!.modified == false {
             self.habits[i]!.totalDone += 1
             self.habits[i]!.modified = true
-            habitStatus[i % 7] = "success"
+            habitStatus[Int(self.habits[i]!.totalDays) % 7] = "success"
 
             }else{
                 self.habits[i]!.totalDone -= 1
                 self.habits[i]!.modified = false
-                habitStatus[i % 7] = "false"
+                habitStatus[Int(self.habits[i]!.totalDays) % 7] = "false"
             }
         self.habits[i]!.status = habitStatus as NSObject
             let cell = habitTableView.cellForRow(at: IndexPath(row: i, section: 0)) as! CustomTableViewCell
                 for item in cell.historyStackView.arrangedSubviews {
                     item.removeFromSuperview()
                 }
-
-//        for status in habits[i]!.status as! [AnyObject] { // buat nge update value status dari historystackview
-//                let statusView = UIImageView()
-//                statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-
-//            if status as! String == "success" {
-//                    statusView.image =  UIImage(named: "days-success")
-//                } else if status as! String == "failed" {
-//                    statusView.image =  UIImage(named: "days-failed")
-//                } else {
-//                    statusView.image =  UIImage(named: "days-empty")
-//                }
-//                cell.historyStackView.addArrangedSubview(statusView)
-//            }
         
         do {
             try self.context.save()
