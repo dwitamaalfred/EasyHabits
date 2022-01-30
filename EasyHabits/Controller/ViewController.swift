@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 import CoreData
 
 
@@ -27,6 +28,34 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
         
+        let center = UNUserNotificationCenter.current()
+
+           center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+               if granted {
+                   print("Yay!")
+               } else {
+                   print("D'oh")
+               }
+           }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Daily Habit Reminder"
+        content.body = "Have you done your habit today?"
+        content.categoryIdentifier = "alarm"
+        content.sound = UNNotificationSound.default
+
+        var dateComponents = DateComponents()
+        dateComponents.hour = 12
+        dateComponents.minute = 0
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+        
+        
+        //
+       
+        //
         
         let date = Date()
         let formatter = DateFormatter()
@@ -64,6 +93,8 @@ class ViewController: UIViewController {
         self.habitTableView.reloadWithAnimation()
     }
     
+ 
+    
     func detectHowManyDayChanged(){
         if let latestDay = UserDefaults.standard.object(forKey: "latestDay") as? Date {
             let df = DateFormatter()
@@ -72,7 +103,7 @@ class ViewController: UIViewController {
             
             print(diff)
             if diff > 0 {
-                for i in 1...diff {
+                for _ in 1...diff {
                     let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HabitsData")
                     habitLiveChecker(fetchRequest: request)
                     habitFailedUpdate(fetchRequest: request)
@@ -318,6 +349,7 @@ class ViewController: UIViewController {
             // error handling
         }
     }
+    
 }
 
 extension ViewController : UITableViewDelegate {
@@ -516,3 +548,5 @@ extension UITableView {
                 }
     }
 }
+
+

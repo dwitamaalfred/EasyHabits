@@ -2,8 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title String Goes Here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kp-aA-zrM">
-                                <rect key="frame" x="20" y="15" width="203" height="22.5"/>
+                                <rect key="frame" x="20" y="15" width="184" height="22.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -186,10 +186,9 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zmp-Ww-E7c">
-                                <rect key="frame" x="233" y="7" width="30" height="30"/>
+                                <rect key="frame" x="228" y="10" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="636-pF-5Eb"/>
-                                    <constraint firstAttribute="height" constant="30" id="wpe-iL-lio"/>
+                                    <constraint firstAttribute="width" constant="30" id="GbX-kE-TxA"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system">
@@ -200,21 +199,22 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="habit-white"/>
                         <constraints>
                             <constraint firstItem="xNt-a6-tiT" firstAttribute="leading" secondItem="6Kp-aA-zrM" secondAttribute="leading" id="0xT-Uj-vdy"/>
                             <constraint firstItem="M79-NW-KeV" firstAttribute="top" secondItem="xNt-a6-tiT" secondAttribute="bottom" constant="10" id="2ph-r8-hX1"/>
                             <constraint firstAttribute="trailing" secondItem="M79-NW-KeV" secondAttribute="trailing" constant="20" id="311-NO-WOc"/>
-                            <constraint firstItem="Zmp-Ww-E7c" firstAttribute="leading" secondItem="6Kp-aA-zrM" secondAttribute="trailing" constant="10" id="33w-0j-PGY"/>
-                            <constraint firstItem="Zmp-Ww-E7c" firstAttribute="trailing" secondItem="7tb-i2-Q1s" secondAttribute="trailing" id="6Il-O4-DQy"/>
+                            <constraint firstAttribute="trailing" secondItem="Zmp-Ww-E7c" secondAttribute="trailing" constant="15" id="4XU-lf-xtG"/>
+                            <constraint firstItem="Zmp-Ww-E7c" firstAttribute="leading" secondItem="6Kp-aA-zrM" secondAttribute="trailing" constant="24" id="LMF-ph-BXI"/>
+                            <constraint firstItem="Zmp-Ww-E7c" firstAttribute="top" secondItem="U4e-Fq-mQt" secondAttribute="top" constant="10" id="LdG-HR-Ets"/>
                             <constraint firstAttribute="bottom" secondItem="M79-NW-KeV" secondAttribute="bottom" constant="10" id="cD6-H2-vJt"/>
                             <constraint firstItem="7tb-i2-Q1s" firstAttribute="top" secondItem="6Kp-aA-zrM" secondAttribute="bottom" constant="12.5" id="cxy-i7-fG5"/>
                             <constraint firstItem="6Kp-aA-zrM" firstAttribute="leading" secondItem="U4e-Fq-mQt" secondAttribute="leading" constant="20" id="haf-1A-fjj"/>
+                            <constraint firstItem="7tb-i2-Q1s" firstAttribute="top" secondItem="Zmp-Ww-E7c" secondAttribute="bottom" constant="10" id="nGr-wE-Q4p"/>
                             <constraint firstItem="6Kp-aA-zrM" firstAttribute="top" secondItem="U4e-Fq-mQt" secondAttribute="top" constant="15" id="tjt-kB-bBe"/>
                             <constraint firstItem="M79-NW-KeV" firstAttribute="leading" secondItem="U4e-Fq-mQt" secondAttribute="leading" constant="20" id="u5e-c1-dv8"/>
                             <constraint firstItem="7tb-i2-Q1s" firstAttribute="leading" secondItem="xNt-a6-tiT" secondAttribute="trailing" constant="8" symbolic="YES" id="xYn-Qk-J28"/>
                             <constraint firstItem="xNt-a6-tiT" firstAttribute="top" secondItem="6Kp-aA-zrM" secondAttribute="bottom" constant="15" id="xhp-J3-utO"/>
-                            <constraint firstItem="7tb-i2-Q1s" firstAttribute="top" secondItem="Zmp-Ww-E7c" secondAttribute="bottom" constant="13" id="ye9-Ch-NCX"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -224,7 +224,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <color key="backgroundColor" name="habit-grey"/>
             <connections>
                 <outlet property="categoryDaysLabel" destination="zST-NA-VEx" id="fya-py-iyP"/>
                 <outlet property="categoryLivesLabel" destination="lNE-4b-oMS" id="bb9-Ze-zc4"/>
@@ -247,17 +247,17 @@
         <image name="done" width="9" height="13"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="life" width="11" height="11"/>
+        <namedColor name="habit-grey">
+            <color red="0.93400001525878906" green="0.93699997663497925" blue="0.94700002670288086" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="habit-white">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
