@@ -12,6 +12,7 @@ import Lottie
 
 extension UITableView {
     
+    
     func setEmptyMessage(_ message: String) {
 //        let emptyStateView = UIView()
         var emptyStateView: AnimationView?
