@@ -68,7 +68,7 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBAction func donePressed(_ sender: UIButton) {
         //        var habitStatus = habit.status as! [String]
-//
+        print("done pressed")
         if habit.modified == false {
             self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
         }else{

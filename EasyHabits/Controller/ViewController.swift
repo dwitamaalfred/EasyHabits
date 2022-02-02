@@ -45,7 +45,10 @@ class ViewController: UIViewController {
         habitTableView.rowHeight = 200
         
         updateDate()
-        self.fetchCoreData()
+        DispatchQueue.main.async {
+            self.fetchCoreData()
+        }
+        
         super.viewDidLoad()
     }
     
@@ -56,17 +59,23 @@ class ViewController: UIViewController {
         habitSuccessUpdate(fetchRequest: request)
         habitWeekUpdate(fetchRequest: request)
         
-        self.fetchCoreData()
-        habitTableView.reloadData()
+        
         let date = Date()
         let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "E, d MMM yyyy"
-        dateLabel.text = formatter.string(from: modifiedDate)
-
-        habitTableView.reloadData()
+        
+        
+        
+        DispatchQueue.main.async {
+            self.dateLabel.text = formatter.string(from: modifiedDate)
+            self.fetchCoreData()
+            self.habitTableView.reloadData()
+        }
+        
+        
     }
     
    
@@ -236,9 +245,11 @@ class ViewController: UIViewController {
                        print("failed to save data")
                    }
                    
+                   DispatchQueue.main.async {
+                       self.habitTableView.reloadData()
+                       self.fetchCoreData()
+                   }
                    
-                   habitTableView.reloadData()
-                   self.fetchCoreData()
                    self.blurEffectView.removeFromSuperview()
                    
                }
@@ -335,8 +346,11 @@ extension ViewController : ModifyHabitCardDelegate {
                 }catch{
                     print("failed to save data")
                 }
-                habitTableView.reloadData()
-                self.fetchCoreData()
+                DispatchQueue.main.async {
+                    self.habitTableView.reloadData()
+                    self.fetchCoreData()
+                }
+                
                 self.blurEffectView.removeFromSuperview()
             }))
     //
@@ -364,8 +378,11 @@ extension ViewController : ModifyHabitCardDelegate {
             }catch{
                 
             }
-            self.fetchCoreData()
-            self.habitTableView.reloadData()
+            DispatchQueue.main.async {
+                self.habitTableView.reloadData()
+                self.fetchCoreData()
+            }
+    
             
             
         }
@@ -403,8 +420,10 @@ extension ViewController : ModifyHabitCardDelegate {
         }catch{
             
         }
-        self.fetchCoreData()
-        self.habitTableView.reloadData()
+        DispatchQueue.main.async {
+            self.fetchCoreData()
+            self.habitTableView.reloadData()
+        }
     }
 }
 

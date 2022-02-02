@@ -25,9 +25,6 @@ extension UITableView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "emptyStateImage")
         
-    
-        
-        
         emptyStateView.addSubview(messageLabel)
         emptyStateView.addSubview(imageView)
         
@@ -36,7 +33,6 @@ extension UITableView {
         imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         imageView.topAnchor.constraint(equalTo: emptyStateView.topAnchor, constant: self.bounds.size.height / 4).isActive = true
-        
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.centerXAnchor.constraint(equalTo: emptyStateView.centerXAnchor).isActive = true
