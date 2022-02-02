@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 import CoreData
-
+import Lottie
 
 class ViewController: UIViewController {
     
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
             self.habits = try context.fetch(request)
             DispatchQueue.main.async {
                 if self.habits.count == 0 {
-                    print("empty state")
+//                    print("empty state")
                 }
                 self.habitTableView.reloadData()
             }

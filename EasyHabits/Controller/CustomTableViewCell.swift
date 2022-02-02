@@ -68,7 +68,7 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBAction func donePressed(_ sender: UIButton) {
         //        var habitStatus = habit.status as! [String]
-        print("done pressed from \(self.habitTitleLabel.text)")
+//        print("done pressed from \(self.habitTitleLabel.text)")
 //        self.animateView(sender)
 //        if habit.modified == false {
 //
