@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7549525DC2867968A526C684 /* Pods_EasyHabits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DE7F0E20EA272490C94121 /* Pods_EasyHabits.framework */; };
 		AD13A75027957BE60006D221 /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD13A74F27957BE60006D221 /* BlurEffectView.swift */; };
 		AD1D7A03279B00B600130D06 /* EmptyStateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D7A02279B00B600130D06 /* EmptyStateHelper.swift */; };
 		AD37BF942793EA1F000B5602 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37BF932793EA1F000B5602 /* AppDelegate.swift */; };
@@ -19,9 +20,12 @@
 		AD37BFAD2793EDC8000B5602 /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37BFAC2793EDC8000B5602 /* HabitModel.swift */; };
 		AD6CC76C27946EF400AF35A1 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6CC76A27946EF400AF35A1 /* CustomTableViewCell.swift */; };
 		AD6CC76D27946EF400AF35A1 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6CC76B27946EF400AF35A1 /* CustomTableViewCell.xib */; };
+		ADB3923C27AA2E8600A69F3F /* eazyHabitsEmptyState.json in Resources */ = {isa = PBXBuildFile; fileRef = ADB3923B27AA2E8600A69F3F /* eazyHabitsEmptyState.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74DE7F0E20EA272490C94121 /* Pods_EasyHabits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyHabits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C8AFD5964B810C41EE8197F /* Pods-EasyHabits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyHabits.debug.xcconfig"; path = "Target Support Files/Pods-EasyHabits/Pods-EasyHabits.debug.xcconfig"; sourceTree = "<group>"; };
 		AD13A74F27957BE60006D221 /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		AD1D7A02279B00B600130D06 /* EmptyStateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateHelper.swift; sourceTree = "<group>"; };
 		AD37BF902793EA1F000B5602 /* EasyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +40,8 @@
 		AD37BFAC2793EDC8000B5602 /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
 		AD6CC76A27946EF400AF35A1 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		AD6CC76B27946EF400AF35A1 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		ADB3923B27AA2E8600A69F3F /* eazyHabitsEmptyState.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eazyHabitsEmptyState.json; sourceTree = "<group>"; };
+		EB1ECFBF7A8764CF83455AB9 /* Pods-EasyHabits.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyHabits.release.xcconfig"; path = "Target Support Files/Pods-EasyHabits/Pods-EasyHabits.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7549525DC2867968A526C684 /* Pods_EasyHabits.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36A94F52E5CE2C77D4CE12C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74DE7F0E20EA272490C94121 /* Pods_EasyHabits.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C4581FE6547CE83C276BC62 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C8AFD5964B810C41EE8197F /* Pods-EasyHabits.debug.xcconfig */,
+				EB1ECFBF7A8764CF83455AB9 /* Pods-EasyHabits.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AD37BF872793EA1F000B5602 = {
 			isa = PBXGroup;
 			children = (
 				AD37BF922793EA1F000B5602 /* EasyHabits */,
 				AD37BF912793EA1F000B5602 /* Products */,
+				7C4581FE6547CE83C276BC62 /* Pods */,
+				36A94F52E5CE2C77D4CE12C7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +100,7 @@
 				AD37BFAB2793EA7F000B5602 /* Controller */,
 				AD37BFAA2793EA71000B5602 /* Storyboard */,
 				AD37BF9F2793EA20000B5602 /* Assets.xcassets */,
+				ADB3923827AA256B00A69F3F /* LottieAnimation */,
 				AD37BFA12793EA20000B5602 /* LaunchScreen.storyboard */,
 				AD37BFA42793EA20000B5602 /* Info.plist */,
 				AD37BF9C2793EA1F000B5602 /* EasyHabits.xcdatamodeld */,
@@ -109,6 +136,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		ADB3923827AA256B00A69F3F /* LottieAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				ADB3923B27AA2E8600A69F3F /* eazyHabitsEmptyState.json */,
+			);
+			path = LottieAnimation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,9 +151,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD37BFA72793EA20000B5602 /* Build configuration list for PBXNativeTarget "EasyHabits" */;
 			buildPhases = (
+				588801B4E5E461F5E7D1B944 /* [CP] Check Pods Manifest.lock */,
 				AD37BF8C2793EA1F000B5602 /* Sources */,
 				AD37BF8D2793EA1F000B5602 /* Frameworks */,
 				AD37BF8E2793EA1F000B5602 /* Resources */,
+				34AF48C9217F9B827D562E3A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADB3923C27AA2E8600A69F3F /* eazyHabitsEmptyState.json in Resources */,
 				AD37BFA32793EA20000B5602 /* LaunchScreen.storyboard in Resources */,
 				AD37BFA02793EA20000B5602 /* Assets.xcassets in Resources */,
 				AD6CC76D27946EF400AF35A1 /* CustomTableViewCell.xib in Resources */,
@@ -175,6 +213,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34AF48C9217F9B827D562E3A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EasyHabits/Pods-EasyHabits-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EasyHabits/Pods-EasyHabits-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EasyHabits/Pods-EasyHabits-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		588801B4E5E461F5E7D1B944 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EasyHabits-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AD37BF8C2793EA1F000B5602 /* Sources */ = {
@@ -265,7 +345,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -320,7 +400,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -332,6 +412,7 @@
 		};
 		AD37BFA82793EA20000B5602 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C8AFD5964B810C41EE8197F /* Pods-EasyHabits.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -340,6 +421,7 @@
 				DEVELOPMENT_TEAM = MX956RXSX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyHabits/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EazyHabits;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -350,7 +432,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EasyHabits;
+				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EazyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -360,6 +442,7 @@
 		};
 		AD37BFA92793EA20000B5602 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB1ECFBF7A8764CF83455AB9 /* Pods-EasyHabits.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -368,6 +451,7 @@
 				DEVELOPMENT_TEAM = MX956RXSX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyHabits/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EazyHabits;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -378,7 +462,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EasyHabits;
+				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EazyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

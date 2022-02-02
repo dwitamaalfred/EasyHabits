@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import UserNotifications
 import CoreData
-
+import Lottie
 
 class ViewController: UIViewController {
     
@@ -27,6 +28,34 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
         
+        let center = UNUserNotificationCenter.current()
+
+           center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+               if granted {
+                   print("Yay!")
+               } else {
+                   print("D'oh")
+               }
+           }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Daily Habit Reminder"
+        content.body = "Have you done your habit today?"
+        content.categoryIdentifier = "alarm"
+        content.sound = UNNotificationSound.default
+
+        var dateComponents = DateComponents()
+        dateComponents.hour = 12
+        dateComponents.minute = 0
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+        
+        
+        //
+       
+        //
         
         let date = Date()
         let formatter = DateFormatter()
@@ -39,14 +68,73 @@ class ViewController: UIViewController {
         habitTableView.delegate = self
         habitTableView.dataSource = self
         
-        
-        
         habitTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
         habitTableView.rowHeight = 200
         
-        updateDate()
-        self.fetchCoreData()
+//        DispatchQueue.main.async {
+//            UserDefaults.standard.set(date, forKey: "latestDay")
+//        }
+        
+        
+        
+//        updateDate()
+//        DispatchQueue.main.async {
+            detectHowManyDayChanged()
+            fetchCoreData()
+            
+//        }
+        
+        
+        
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.habitTableView.reloadWithAnimation()
+    }
+    
+ 
+    
+    func detectHowManyDayChanged(){
+        if let latestDay = UserDefaults.standard.object(forKey: "latestDay") as? Date {
+            let df = DateFormatter()
+            df.dateFormat = "dd/MM/yyyy HH:mm"
+            let diff = Date().interval(ofComponent: .day, fromDate: latestDay)
+            
+            print(diff)
+            if diff > 0 {
+                for _ in 1...diff {
+                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HabitsData")
+                    habitLiveChecker(fetchRequest: request)
+                    habitFailedUpdate(fetchRequest: request)
+                    habitSuccessUpdate(fetchRequest: request)
+                    habitWeekUpdate(fetchRequest: request)
+                    
+                    
+                    let date = Date()
+            //        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+                    let formatter = DateFormatter()
+                    formatter.timeZone = .current
+                    formatter.locale = .current
+                    formatter.dateFormat = "E, d MMM yyyy"
+                    
+                    DispatchQueue.main.async {
+                        self.dateLabel.text = formatter.string(from: date)
+                        self.fetchCoreData()
+                        self.habitTableView.reloadData()
+                        
+                    }
+                    
+                }
+            }
+            
+        
+        } else {
+            print("nil")
+//            UserDefaults.standard.set(Date(), forKey: "latestDay")
+        }
+        UserDefaults.standard.set(Date(), forKey: "latestDay")
+    
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {
@@ -56,17 +144,23 @@ class ViewController: UIViewController {
         habitSuccessUpdate(fetchRequest: request)
         habitWeekUpdate(fetchRequest: request)
         
-        self.fetchCoreData()
-        habitTableView.reloadData()
+        
         let date = Date()
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+//        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "E, d MMM yyyy"
-        dateLabel.text = formatter.string(from: modifiedDate)
-
-        habitTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            UserDefaults.standard.set(Date(), forKey: "latestDay")
+            self.dateLabel.text = formatter.string(from: date)
+            self.fetchCoreData()
+            self.habitTableView.reloadData()
+            
+        }
+        
+        
     }
     
    
@@ -80,7 +174,7 @@ class ViewController: UIViewController {
             self.habits = try context.fetch(request)
             DispatchQueue.main.async {
                 if self.habits.count == 0 {
-                    print("empty state")
+//                    print("empty state")
                 }
                 self.habitTableView.reloadData()
             }
@@ -94,6 +188,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func addHabitButton(_ sender: Any) {
+        
         
         
         let alertController = UIAlertController.init(title: "New Habit", message: "that will determine your future", preferredStyle: .alert)
@@ -130,16 +225,16 @@ class ViewController: UIViewController {
         self.view.addSubview(blurEffectView)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func updateDate(){
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.timeZone = .current
-        formatter.locale = .current
-        formatter.dateFormat = "dd"
-        let day = formatter.string(from: date)
-        defaults.set(day, forKey: "latestDay")
-    }
+//
+//    func updateDate(){
+//        let date = Date()
+//        let formatter = DateFormatter()
+//        formatter.timeZone = .current
+//        formatter.locale = .current
+//        formatter.dateFormat = "dd"
+//        let day = formatter.string(from: date)
+//        defaults.set(day, forKey: "latestDay")
+//    }
     
     func restartButton(cell: CustomTableViewCell){
         cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
@@ -177,7 +272,11 @@ class ViewController: UIViewController {
                    var status = filteredRecord.status as! [String]
                    if filteredRecord.totalDays % 7 == 0 {
                        filteredRecord.status =  ["empty","empty","empty","empty","empty","empty","empty"] as NSObject
+                       if filteredRecord.lives < 3 {
+                           filteredRecord.lives += 1
+                       }
                    }
+                 
                }
             try context.save()
      
@@ -236,10 +335,13 @@ class ViewController: UIViewController {
                        print("failed to save data")
                    }
                    
+                   DispatchQueue.main.async {
+                       self.habitTableView.reloadData()
+                       self.fetchCoreData()
+                       self.blurEffectView.removeFromSuperview()
+                   }
                    
-                   habitTableView.reloadData()
-                   self.fetchCoreData()
-                   self.blurEffectView.removeFromSuperview()
+                   
                    
                }
         } catch _ {
@@ -247,6 +349,7 @@ class ViewController: UIViewController {
             // error handling
         }
     }
+    
 }
 
 extension ViewController : UITableViewDelegate {
@@ -335,8 +438,11 @@ extension ViewController : ModifyHabitCardDelegate {
                 }catch{
                     print("failed to save data")
                 }
-                habitTableView.reloadData()
-                self.fetchCoreData()
+                DispatchQueue.main.async {
+                    self.habitTableView.reloadData()
+                    self.fetchCoreData()
+                }
+                
                 self.blurEffectView.removeFromSuperview()
             }))
     //
@@ -364,8 +470,11 @@ extension ViewController : ModifyHabitCardDelegate {
             }catch{
                 
             }
-            self.fetchCoreData()
-            self.habitTableView.reloadData()
+            DispatchQueue.main.async {
+                self.fetchCoreData()
+                self.habitTableView.reloadData()
+            }
+    
             
             
         }
@@ -379,6 +488,8 @@ extension ViewController : ModifyHabitCardDelegate {
     }
     
     func didUpdateHabitValue(cell: CustomTableViewCell) {
+//        self.detectHowManyDayChanged()
+        
         let i = habitTableView.indexPath(for: cell)?.row ?? 0
 
         var habitStatus = (self.habits[i]?.status)! as! [String]
@@ -403,8 +514,38 @@ extension ViewController : ModifyHabitCardDelegate {
         }catch{
             
         }
-        self.fetchCoreData()
-        self.habitTableView.reloadData()
+        DispatchQueue.main.async {
+            self.fetchCoreData()
+            self.habitTableView.reloadData()
+        }
+    }
+}
+
+extension Date {
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+        let currentCalendar = Calendar.current
+
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+
+        return end - start
+    }
+}
+
+extension UITableView {
+    func reloadWithAnimation(){
+        let tableViewHeight = self.bounds.size.height
+                let cells = self.visibleCells
+                var delayCounter = 0
+                for cell in cells {
+                    cell.transform = CGAffineTransform(translationX: self.bounds.size.width, y: 0)
+                }
+                for cell in cells {
+                    UIView.animate(withDuration: 0.8, delay: 0.05 * Double(delayCounter),usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                        cell.transform = CGAffineTransform.identity
+                    }, completion: nil)
+                    delayCounter += 1
+                }
     }
 }
 

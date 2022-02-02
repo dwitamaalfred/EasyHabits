@@ -68,56 +68,17 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBAction func donePressed(_ sender: UIButton) {
         //        var habitStatus = habit.status as! [String]
+//        print("done pressed from \(self.habitTitleLabel.text)")
+//        self.animateView(sender)
+//        if habit.modified == false {
 //
-        if habit.modified == false {
-            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
-        }else{
-            self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-        }
-        delegate?.didUpdateHabitValue(cell: self)
-
-        updateHabit()
-//
-//        for item in self.historyStackView.arrangedSubviews {
-//            item.removeFromSuperview()
-//        }
-//        for status in habit.status as! [AnyObject] {
-//                    let statusView = UIImageView()
-//                    statusView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//
-//                    if status as! String == "success" {
-//                        statusView.image =  UIImage(named: "days-success")
-//                    } else if status as! String == "failed" {
-//                        statusView.image =  UIImage(named: "days-failed")
-//                    } else {
-//                        statusView.image =  UIImage(named: "days-empty")
-//                    }
-//                    historyStackView.addArrangedSubview(statusView)
-//                }
-        
-        
-//        if habit.modified == false{
-//
-//            self.totalDaysDone.text = String(habit.totalDone)
-//            self.totalDaysLabel.text = String(habit.totalDays)
-//            self.habit.modified = true
 //            self.markDoneButton.setImage(UIImage(named: "done-button"), for: .normal)
-//            habit.status[(habit.totalDays) % 7] = "success"
-//            habit.totalDone += 1
-//            habit.totalDays += 1
+//        }else{
 //
-//                }else{
-//                    habit.totalDone -= 1
-//                    habit.totalDaysLabel -= 1
-//                    habit.modified = false
-//                    self.totalDaysDone.text = String(habit.totalDone)
-//                    self.totalDaysLabel.text = String(habit.totalDays)
-//                    self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
-//                    habit.status[(habit.totalDays) % 7] = "empty"
-//
-//                }
-//        habits[indexPath!.row] = cell.habit
-//        print(habit)
+//            self.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
+//        }
+        delegate?.didUpdateHabitValue(cell: self)
+        updateHabit()
     }
     
     func updateHabit(){
@@ -151,7 +112,24 @@ class CustomTableViewCell: UITableViewCell {
         markDoneButton.layer.shadowRadius = 5
         markDoneButton.layer.masksToBounds = false
         markDoneButton.layer.cornerRadius = 4.0
+//        markDoneButton.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+//    fileprivate func animateView(_ viewToAnimate: UIButton){
+//
+//        UIView.animate(withDuration: 0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+//            viewToAnimate.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+//            print("aniamte in")
+//        } completion: { (_) in
+//            print("aniamte out")
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+//                viewToAnimate.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            }
+//
+//        }
+//    }
+    
+
     
 }
 
