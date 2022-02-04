@@ -18,6 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0;
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 
     // MARK: UISceneSession Lifecycle
 

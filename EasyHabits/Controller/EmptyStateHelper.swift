@@ -21,6 +21,7 @@ extension UITableView {
         emptyStateView?.animationSpeed = 1.5
         emptyStateView!.loopMode = .loop
         emptyStateView!.play()
+        emptyStateView!.backgroundBehavior = .pauseAndRestore
         
         
         

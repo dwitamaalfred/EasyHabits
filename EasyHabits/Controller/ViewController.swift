@@ -38,12 +38,16 @@ class ViewController: UIViewController {
                }
            }
         
+        
+        center.removeAllPendingNotificationRequests()
+        
         let content = UNMutableNotificationContent()
         content.title = "Daily Habit Reminder"
         content.body = "Have you done your habit today?"
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound.default
 
+        
         var dateComponents = DateComponents()
         dateComponents.hour = 12
         dateComponents.minute = 0
