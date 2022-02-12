@@ -417,7 +417,7 @@ extension ViewController : UITableViewDataSource {
 extension ViewController : ModifyHabitCardDelegate {
     func settingCellPressed(cell: CustomTableViewCell) {
         self.view.addSubview(blurEffectView)
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Options", message: "What do you want to do with the Habit?", preferredStyle: .alert)
         let editAction = UIAlertAction(title: "edit", style: .default) { [self] (action) in
             
             let i = habitTableView.indexPath(for: cell)?.row ?? 0
@@ -488,6 +488,10 @@ extension ViewController : ModifyHabitCardDelegate {
         actionSheet.addAction(editAction)
         actionSheet.addAction(deleteAction)
         actionSheet.addAction(cancelAction)
+        
+        actionSheet.popoverPresentationController?.sourceView = self.view
+        actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.height, y: self.view.bounds.midY, width: 0, height: 0)
         self.present(actionSheet, animated: true, completion: nil)
     }
     
