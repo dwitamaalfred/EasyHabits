@@ -340,6 +340,7 @@
 				DEVELOPMENT_TEAM = MX956RXSX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyHabits/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EazyHabits;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -350,7 +351,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EasyHabits;
+				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EazyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -368,6 +369,7 @@
 				DEVELOPMENT_TEAM = MX956RXSX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyHabits/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EazyHabits;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -378,7 +380,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EasyHabits;
+				PRODUCT_BUNDLE_IDENTIFIER = dwitama.alfred.EazyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

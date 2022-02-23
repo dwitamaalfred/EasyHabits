@@ -49,15 +49,19 @@ class ViewController: UIViewController {
         
         
 //        updateDate()
-        DispatchQueue.main.async {
-            self.detectHowManyDayChanged()
-            self.fetchCoreData()
+//        DispatchQueue.main.async {
+            detectHowManyDayChanged()
+            fetchCoreData()
             
-        }
+//        }
         
         
         
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.habitTableView.reloadWithAnimation()
     }
     
     func detectHowManyDayChanged(){
@@ -237,7 +241,11 @@ class ViewController: UIViewController {
                    var status = filteredRecord.status as! [String]
                    if filteredRecord.totalDays % 7 == 0 {
                        filteredRecord.status =  ["empty","empty","empty","empty","empty","empty","empty"] as NSObject
+                       if filteredRecord.lives < 3 {
+                           filteredRecord.lives += 1
+                       }
                    }
+                 
                }
             try context.save()
      
@@ -299,9 +307,10 @@ class ViewController: UIViewController {
                    DispatchQueue.main.async {
                        self.habitTableView.reloadData()
                        self.fetchCoreData()
+                       self.blurEffectView.removeFromSuperview()
                    }
                    
-                   self.blurEffectView.removeFromSuperview()
+                   
                    
                }
         } catch _ {
@@ -430,8 +439,8 @@ extension ViewController : ModifyHabitCardDelegate {
                 
             }
             DispatchQueue.main.async {
-                self.habitTableView.reloadData()
                 self.fetchCoreData()
+                self.habitTableView.reloadData()
             }
     
             
@@ -481,14 +490,29 @@ extension ViewController : ModifyHabitCardDelegate {
 }
 
 extension Date {
-
     func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
-
         let currentCalendar = Calendar.current
 
         guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
         guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
 
         return end - start
+    }
+}
+
+extension UITableView {
+    func reloadWithAnimation(){
+        let tableViewHeight = self.bounds.size.height
+                let cells = self.visibleCells
+                var delayCounter = 0
+                for cell in cells {
+                    cell.transform = CGAffineTransform(translationX: self.bounds.size.width, y: 0)
+                }
+                for cell in cells {
+                    UIView.animate(withDuration: 0.8, delay: 0.05 * Double(delayCounter),usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                        cell.transform = CGAffineTransform.identity
+                    }, completion: nil)
+                    delayCounter += 1
+                }
     }
 }
