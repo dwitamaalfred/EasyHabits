@@ -39,17 +39,67 @@ class ViewController: UIViewController {
         habitTableView.delegate = self
         habitTableView.dataSource = self
         
-        
-        
         habitTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
         habitTableView.rowHeight = 200
         
-        updateDate()
+//        DispatchQueue.main.async {
+//            UserDefaults.standard.set(date, forKey: "latestDay")
+//        }
+        
+        
+        
+//        updateDate()
         DispatchQueue.main.async {
+            self.detectHowManyDayChanged()
             self.fetchCoreData()
+            
         }
         
+        
+        
         super.viewDidLoad()
+    }
+    
+    func detectHowManyDayChanged(){
+        if let latestDay = UserDefaults.standard.object(forKey: "latestDay") as? Date {
+            let df = DateFormatter()
+            df.dateFormat = "dd/MM/yyyy HH:mm"
+            let diff = Date().interval(ofComponent: .day, fromDate: latestDay)
+            
+            print(diff)
+            if diff > 0 {
+                for i in 1...diff {
+                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HabitsData")
+                    habitLiveChecker(fetchRequest: request)
+                    habitFailedUpdate(fetchRequest: request)
+                    habitSuccessUpdate(fetchRequest: request)
+                    habitWeekUpdate(fetchRequest: request)
+                    
+                    
+                    let date = Date()
+            //        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+                    let formatter = DateFormatter()
+                    formatter.timeZone = .current
+                    formatter.locale = .current
+                    formatter.dateFormat = "E, d MMM yyyy"
+                    
+                    DispatchQueue.main.async {
+                        self.dateLabel.text = formatter.string(from: date)
+                        self.fetchCoreData()
+                        self.habitTableView.reloadData()
+                        
+                    }
+                    
+                }
+            }
+            
+        
+        } else {
+            print("nil")
+//            UserDefaults.standard.set(Date(), forKey: "latestDay")
+        }
+        UserDefaults.standard.set(Date(), forKey: "latestDay")
+    
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {
@@ -61,18 +111,18 @@ class ViewController: UIViewController {
         
         
         let date = Date()
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+//        let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "E, d MMM yyyy"
         
-        
-        
         DispatchQueue.main.async {
-            self.dateLabel.text = formatter.string(from: modifiedDate)
+            UserDefaults.standard.set(Date(), forKey: "latestDay")
+            self.dateLabel.text = formatter.string(from: date)
             self.fetchCoreData()
             self.habitTableView.reloadData()
+            
         }
         
         
@@ -103,6 +153,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func addHabitButton(_ sender: Any) {
+        
         
         
         let alertController = UIAlertController.init(title: "New Habit", message: "that will determine your future", preferredStyle: .alert)
@@ -139,16 +190,16 @@ class ViewController: UIViewController {
         self.view.addSubview(blurEffectView)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func updateDate(){
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.timeZone = .current
-        formatter.locale = .current
-        formatter.dateFormat = "dd"
-        let day = formatter.string(from: date)
-        defaults.set(day, forKey: "latestDay")
-    }
+//
+//    func updateDate(){
+//        let date = Date()
+//        let formatter = DateFormatter()
+//        formatter.timeZone = .current
+//        formatter.locale = .current
+//        formatter.dateFormat = "dd"
+//        let day = formatter.string(from: date)
+//        defaults.set(day, forKey: "latestDay")
+//    }
     
     func restartButton(cell: CustomTableViewCell){
         cell.markDoneButton.setImage(UIImage(named: "check-button"), for: .normal)
@@ -396,6 +447,8 @@ extension ViewController : ModifyHabitCardDelegate {
     }
     
     func didUpdateHabitValue(cell: CustomTableViewCell) {
+//        self.detectHowManyDayChanged()
+        
         let i = habitTableView.indexPath(for: cell)?.row ?? 0
 
         var habitStatus = (self.habits[i]?.status)! as! [String]
@@ -427,4 +480,15 @@ extension ViewController : ModifyHabitCardDelegate {
     }
 }
 
+extension Date {
 
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+
+        let currentCalendar = Calendar.current
+
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+
+        return end - start
+    }
+}
